@@ -2,16 +2,20 @@ package telran.spring.college.entity;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import telran.spring.college.dto.PersonDto;
 @Entity
 
 @NoArgsConstructor
 public class Lecturer extends Person {
 
-	public Lecturer(long id, String name, LocalDate birthDate, String city, String phone) {
-		super(id, name, birthDate, city, phone);
+	private Lecturer(PersonDto person) {
+		super(person);
 		
+	}
+	public static Lecturer of(PersonDto person) {
+		//possible additional validation
+		return new Lecturer(person);
 	}
 	
 	

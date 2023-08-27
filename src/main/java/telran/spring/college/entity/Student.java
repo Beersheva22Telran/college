@@ -2,6 +2,7 @@ package telran.spring.college.entity;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import telran.spring.college.dto.PersonDto;
 
 @Entity
 
@@ -12,9 +13,12 @@ public class Student extends Person{
 		
 	}
 
-	public Student(long id, String name, LocalDate birthDate, String city, String phone) {
-		super(id, name, birthDate, city, phone);
+	private Student(PersonDto person) {
+		super(person);
 		
+	}
+	public static Student of(PersonDto person) {
+		return new Student(person);
 	}
 
 }
