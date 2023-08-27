@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class PersonDto {
 	
-long id;
+Long id;
 String name;
 @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}")
 String birthDateStr;

@@ -9,6 +9,6 @@ public class SubjectDto {
 	String id;
 	String name;
 	int hours;
-	long lecturerId;
+	Long lecturerId;
 
 }
