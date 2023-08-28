@@ -10,8 +10,7 @@ import telran.spring.college.dto.IdName;
 import telran.spring.college.entity.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-	@Query(value="select sl.id as id, sl.name as name from students_lecturers sl where sl.dtype='Student'"
-			+ " join marks on sl.id=student_id join subjects sbj on subject_id=sbj.id where lecturer_id=:lecturerId "
+	@Query(value="select sl.id as id, sl.name as name from students_lecturers sl  join marks on sl.id=student_id and  sl.dtype = 'Student' join subjects sbj on subject_id=sbj.id where lecturer_id=:lecturerId "
 			+ "group by sl.id order by avg(mark) desc limit :nStudents", nativeQuery = true)
 List<IdName> findBestStudentsLecturer(long lecturerId, int nStudents);
 }
