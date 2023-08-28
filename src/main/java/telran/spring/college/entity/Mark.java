@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import telran.spring.college.dto.MarkDto;
 @Entity
 @NoArgsConstructor
+@Table(name="marks")
 public class Mark {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
