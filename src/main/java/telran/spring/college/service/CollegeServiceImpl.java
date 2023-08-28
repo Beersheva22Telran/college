@@ -115,4 +115,16 @@ long maxId;
 		return studentRepo.findBestStudentsLecturer(lecturerId, nStudents);
 	}
 
+	@Override
+	public List<IdName> studentsAvgMarksGreaterCollegeAvg(int nMarksThreshold) {
+		
+		return studentRepo.findStudentsAvgMarkGreaterCollege(nMarksThreshold);
+	}
+
+	@Override
+	public List<StudentMark> studentsAvgMarks() {
+		
+		return studentRepo.findStudentsMarks();
+	}
+
 }
