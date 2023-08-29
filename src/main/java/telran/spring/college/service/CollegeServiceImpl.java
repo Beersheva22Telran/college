@@ -18,7 +18,7 @@ import telran.spring.exceptions.NotFoundException;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional(readOnly = true)
-public class CollegeServiceImpl implements CollegeServcie {
+public class CollegeServiceImpl implements CollegeService {
 final StudentRepository studentRepo;
 final SubjectRepository subjectRepo;
 final LecturerRepository lecturerRepo;
@@ -125,6 +125,53 @@ long maxId;
 	public List<StudentMark> studentsAvgMarks() {
 		
 		return studentRepo.findStudentsMarks();
+	}
+
+	@Override
+	@Transactional (readOnly = false)
+	public SubjectDto updateHours(String subjectId, int hours) {
+		Subject subject = subjectRepo.findById(subjectId)
+				.orElseThrow(() -> new NotFoundException(String.format("Subject with id %s doesn't exist in DB", subjectId)));
+		subject.setHours(hours);
+		
+		return subject.build();
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public SubjectDto updateLecturer(String subjectId, Long lecturerId) {
+		Subject subject = subjectRepo.findById(subjectId)
+				.orElseThrow(() -> new NotFoundException(String.format("Subject with id %s doesn't exist in DB", subjectId)));
+		Lecturer lecturer = null;
+		if(lecturerId != null) {
+			lecturer = lecturerRepo.findById(lecturerId)
+					.orElseThrow(() -> new NotFoundException(String.format("Lecturer with id %d doesn't exist in DB", lecturerId)));
+		}
+		subject.setLecturer(lecturer);
+		return subject.build();
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public List<PersonDto> removeStudentsNoMarks() {
+		return removeStudentsLessMarks(1);
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public List<PersonDto> removeStudentsLessMarks(int nMarks) {
+List<Student> studentsNoMark = studentRepo.findStudentsLessMark(nMarks);
+		
+		studentsNoMark.forEach(s -> {
+			if(nMarks > 1) {
+				markRepo.findMarkByStudentId(s.getId()).forEach(markRepo::delete);
+			}
+			log.debug("student with id {} is going to be deleted", s.getId());
+			studentRepo.delete(s);
+			
+		});
+		
+		return studentsNoMark.stream().map(Student::build).toList();
 	}
 
 }

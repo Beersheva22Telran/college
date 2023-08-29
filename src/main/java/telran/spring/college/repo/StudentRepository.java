@@ -27,4 +27,10 @@ List<IdName> findBestStudentsLecturer(long lecturerId, int nStudents);
 	
 	@Query(value= ID_NAME_MARK_PROJECTION + STUDENTS + "left " + JOIN_MARKS + " group by sl.id order by avg(mark) desc", nativeQuery = true)
 	List<StudentMark> findStudentsMarks();
+
+	@Query(value="select * from students_lecturers where dtype = 'Student' and"
+			+ " id  in (select sl.id from students_lecturers sl left join marks on sl.id=student_id group by sl.id "
+			+ "having count(mark) < :nMarks)", nativeQuery=true)
+	List<Student> findStudentsLessMark(int nMarks);
+	
 }

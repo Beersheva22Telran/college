@@ -19,16 +19,16 @@ import telran.spring.college.dto.SubjectType;
 import telran.spring.college.entity.Lecturer;
 import telran.spring.college.entity.Student;
 import telran.spring.college.repo.*;
-import telran.spring.college.service.CollegeServcie;
+import telran.spring.college.service.CollegeService;
 import telran.spring.exceptions.NotFoundException;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class CollegeServiceAddsTests {
+class CollegeServiceCreateTests {
 private static final long ID_LECTURER = 123;
 private static final long ID_STUDENT = 124;
 @Autowired
-CollegeServcie service;
+CollegeService service;
 PersonDto lecturerDto = new PersonDto(ID_LECTURER, "Vasya", LocalDate.now().toString(), null, null);
 PersonDto lecturerDto1 = new PersonDto(null, "Sara", "2000-01-01", null, null);
 PersonDto studentDto = new PersonDto(ID_STUDENT, "Petya", LocalDate.now().toString(), null, null);

@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import telran.spring.college.service.CollegeServcie;
+import telran.spring.college.service.CollegeService;
 @SpringBootTest
 @Sql(scripts = {"college-read-test-script.sql"})
-class ReadCollegeTest {
+class CollegeServiceReadTests {
 	@Autowired
-CollegeServcie service;
+CollegeService service;
 	@Test
 	
 	void bestStudentsLecturerTest() {
