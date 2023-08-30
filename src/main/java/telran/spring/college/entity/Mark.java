@@ -21,6 +21,7 @@ public class Mark {
 		this.student = student;
 		this.subject = subject;
 		this.mark = mark;
+		
 	}
 	public MarkDto build() {
 		
