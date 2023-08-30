@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import telran.spring.college.dto.IdName;
 import telran.spring.college.dto.StudentMark;
+import telran.spring.college.dto.SubjectType;
 import telran.spring.college.entity.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -39,5 +40,6 @@ List<IdName> findBestStudentsLecturer(long lecturerId, int nStudents);
 			+ " id  in (select sl.id from students_lecturers sl left join marks on sl.id=student_id group by sl.id "
 			+ "having count(mark) < :nMarks)", nativeQuery=true)
 	List<Student> findStudentsLessMarks(int nMarks);
+	List<IdName> findDistinctByMarksSubjectTypeAndMarksMarkGreaterThanOrderById(SubjectType type, int mark);
 	
 }

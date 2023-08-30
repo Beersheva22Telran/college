@@ -47,6 +47,19 @@ CollegeService service;
 		assertEquals("David", studentsMarks.get(4).getName());
 		assertEquals(0, studentsMarks.get(4).getMark());
 	}
+	@Test
+	void marksStudentSubjectTest() {
+		List<MarkDto> marks = service.marksStudentSubject(124, "S2");
+		
+		assertEquals(75, marks.get(0).getMark());
+	}
+	@Test
+	void studentsMarksSubjectTest() {
+		List<IdName> students = service.studentMarksSubject(SubjectType.BACK_END, 90);
+		assertEquals(2, students.size());
+		assertEquals("Vasya", students.get(0).getName());
+		assertEquals("Rivka", students.get(1).getName());
+	}
 	
 
 }
