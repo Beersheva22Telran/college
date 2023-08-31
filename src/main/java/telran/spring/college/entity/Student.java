@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import telran.spring.college.dto.PersonDto;
 
 @Entity
@@ -24,8 +25,8 @@ public class Student extends Person{
 	public static Student of(PersonDto person) {
 		return new Student(person);
 	}
+	@Getter
 	@OneToMany(mappedBy="student")
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	List<Mark> marks;
 
 }

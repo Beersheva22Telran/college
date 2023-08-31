@@ -26,12 +26,16 @@ class CollegeServiceUpdateDeleteTests {
 	static final int HOURS = 200;
 	private static final Long STUDENT_REMOVED_ID_0 = 126l;
 	private static final Long STUDENT_REMOVED_ID_1 = 124l;
+	private static final String SUBJECT_ID_FRONT_1 = "S3";
+	private static final String SUBJECT_ID_FRONT_2 = "S4";
 	@Autowired
 	CollegeService collegeService;
 	@Autowired
 	SubjectRepository subjectRepo;
 	@Autowired
 	StudentRepository studentRepo;
+	@Autowired
+	LecturerRepository lecturerRepo;
 
 	@Test
 	@Order(1)
@@ -93,6 +97,20 @@ class CollegeServiceUpdateDeleteTests {
 		assertNull(studentRepo.findById(STUDENT_REMOVED_ID_0).orElse(null));
 		assertNull(studentRepo.findById(STUDENT_REMOVED_ID_1).orElse(null));
 	}
+	@Test
+	@Sql(scripts = {"college-read-test-script.sql"})
+	@Order(9)
+	
+	void removeLecturerTest() {
+		collegeService.removeLecturer(LECTURER_ID);
+		
+		assertNull(lecturerRepo.findById(LECTURER_ID).orElse(null));
+		Subject subject1 = subjectRepo.findById(SUBJECT_ID_FRONT_1).get();
+		Subject subject2 = subjectRepo.findById(SUBJECT_ID_FRONT_2).get();
+		assertNull(subject1.getLecturer());
+		assertNull(subject2.getLecturer());
+	}
+	
 	
 
 }

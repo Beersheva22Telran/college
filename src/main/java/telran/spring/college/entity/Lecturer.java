@@ -1,5 +1,9 @@
 package telran.spring.college.entity;
 import java.time.LocalDate;
+import java.util.List;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
@@ -17,6 +21,7 @@ public class Lecturer extends Person {
 		//possible additional validation
 		return new Lecturer(person);
 	}
+	
 	
 	
 }
