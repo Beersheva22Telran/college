@@ -27,7 +27,7 @@ public class Subject {
 	@OnDelete(action = OnDeleteAction.SET_NULL)
 	Lecturer lecturer;
 	public SubjectDto build() {
-		return new SubjectDto(id, name, hours, lecturer == null ? null : lecturer.id, type  );
+		return new SubjectDto(id, name, hours, lecturer == null ? null : lecturer.getId(), type  );
 	}
 	static public Subject of(SubjectDto subject) {
 		return new Subject(subject.getId(), subject.getName(), subject.getHours(), subject.getSubjectType(), null);

@@ -140,8 +140,8 @@ long maxId;
 		Subject subject = subjectRepo.findById(subjectId)
 				.orElseThrow(() -> new NotFoundException(String.format("Subject with id %s doesn't exist in DB", subjectId)));
 		subject.setHours(hours);
-		Lecturer lecturer = subject.getLecturer();
-		long lecturerId = lecturer == null ? 0 : lecturer.getId();
+		
+		
 		return subject.build();
 	}
 

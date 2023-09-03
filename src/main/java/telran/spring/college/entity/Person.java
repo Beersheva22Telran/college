@@ -13,7 +13,7 @@ import telran.spring.college.dto.PersonDto;
 @Table(name="students_lecturers")
 abstract public class Person {
 	@Id
-	long id;
+	public long id;
 	String name;
 	@Column(name = "birth_date")
 	@Temporal(TemporalType.DATE)
