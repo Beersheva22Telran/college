@@ -86,16 +86,16 @@ CollegeService service;
 	@Test
 	void jpqlSingleProjectionTest() {
 		String query = "select id from Student order by id";
-		List<String> res = service.jpqlQuery(query);
-		assertEquals(5, res.size());
-		String[] expected = {"123", "124", "125", "126", "127"};
+		List<String> res = service.jpqlQuery(new QueryDto(query, 3));
+		assertEquals(3, res.size());
+		String[] expected = {"123", "124", "125"};
 		assertArrayEquals(expected, res.toArray(String[]::new));
 		
 	}
 	@Test
 	void jpqlMultyProjerctionTest() {
 		String query = "select id, name from Student order by id";
-		List<String> res = service.jpqlQuery(query);
+		List<String> res = service.jpqlQuery(new QueryDto(query, null));
 		assertEquals(5, res.size());
 		String[] expected = {"[123, Vasya]", "[124, Sara]", "[125, Yosef]", "[126, David]", "[127, Rivka]"};
 		assertArrayEquals(expected, res.toArray(String[]::new));

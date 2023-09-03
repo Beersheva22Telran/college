@@ -17,5 +17,5 @@ SubjectDto updateLecturer(String subjectId, Long lecturerId);
 List<PersonDto> removeStudentsNoMarks();
 List<PersonDto> removeStudentsLessMarks(int nMarks);
 PersonDto removeLecturer(long lecturerId);
-List<String> jpqlQuery(String queryStr) ;
+List<String> jpqlQuery(QueryDto query) ;
 }

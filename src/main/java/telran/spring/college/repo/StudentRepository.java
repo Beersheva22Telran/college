@@ -20,14 +20,14 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	String STUDENTS_MARKS = ID_NAME_PROJECTION + STUDENTS
 			+ JOIN_MARKS;
 	@Query(value= STUDENTS_MARKS +"join subjects sbj on subject_id=sbj.id where lecturer_id=:lecturerId "
-			+ "group by sl.id order by avg(mark) desc limit :nStudents", nativeQuery = true)
+			+ "group by sl.id, sl.name order by avg(mark) desc limit :nStudents", nativeQuery = true)
 List<IdName> findBestStudentsLecturer(long lecturerId, int nStudents);
 	
-	@Query("select student.id as id, student.name as name from Mark group by student.id "
+	@Query("select student.id as id, student.name as name from Mark group by student.id, student.name "
 			+ "having count(mark) > :nMarks and avg(mark) > (select avg(mark) from Mark) order by avg(mark) desc")
 	List<IdName> findStudentsAvgMarkGreaterCollege(int nMarks);
 	
-	@Query(value= ID_NAME_MARK_PROJECTION + STUDENTS + "left " + JOIN_MARKS + " group by sl.id order by avg(mark) desc", nativeQuery = true)
+	@Query(value= ID_NAME_MARK_PROJECTION + STUDENTS + "left " + JOIN_MARKS + " group by sl.id, sl.name order by avg(mark) desc", nativeQuery = true)
 	List<StudentMark> findStudentsMarks();
 
 	@Modifying

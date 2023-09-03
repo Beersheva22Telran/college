@@ -140,7 +140,8 @@ long maxId;
 		Subject subject = subjectRepo.findById(subjectId)
 				.orElseThrow(() -> new NotFoundException(String.format("Subject with id %s doesn't exist in DB", subjectId)));
 		subject.setHours(hours);
-		
+		Lecturer lecturer = subject.getLecturer();
+		long lecturerId = lecturer == null ? 0 : lecturer.getId();
 		return subject.build();
 	}
 
@@ -185,8 +186,13 @@ long maxId;
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<String> jpqlQuery(String queryStr) {
-		Query query = em.createQuery(queryStr);
+	public List<String> jpqlQuery(QueryDto queryDto) {
+		Query query = em.createQuery(queryDto.query());
+		Integer limit = queryDto.limit();
+		if(limit != null && limit > 0) {
+			query.setMaxResults(limit);
+			
+		}
 		List<?> resultList = query.getResultList();
 		List<String> result = Collections.emptyList();
 		if(!resultList.isEmpty()) {
